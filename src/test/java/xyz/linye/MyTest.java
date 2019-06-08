@@ -1,5 +1,8 @@
 package xyz.linye;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class MyTest {
@@ -20,7 +23,6 @@ public class MyTest {
                 "2.分治法在数值问题中的应用——矩阵相乘问题\n" +
                 "3.减治法在组合问题中的应用——8枚硬币问题\n" +
                 "4.变治法在排序问题中的应用——堆排序问题\n" +
-                "5.动态规划法在图问题中的应用——全源最短路径问题\n" +
                 "99. 退出本实验\n" +
                 "－－－－－－－－－－－－－－－－－－－－－－－－－\n" +
                 "请输入您所要执行的操作（1，2，3，4，5，99）：");
@@ -32,18 +34,32 @@ public class MyTest {
 
             //斐波那契数列
             if(selectNum == 1){
-                System.out.print("请输入n个Fibonacci数 ");
                 Scanner sc1 = new Scanner(System.in);
-                int n = sc1.nextInt();
-                //获取开始时间
-                long startTime = System.currentTimeMillis();
-
-                System.out.println("第n个Fibonacci数是:"+digui(n));
-
-                //获取结束时间
-                long endTime = System.currentTimeMillis();
-
-                System.out.println(endTime - startTime+"ms");
+                System.out.print("请输入(1.递归算法   2.非递归算法   3.查找计算机承受最大值)：");
+                int num = sc1.nextInt();
+                if(num == 1){
+                    System.out.print("请输入n个Fibonacci数 ");
+                    int n = sc1.nextInt();
+                    //获取开始时间
+                    long startTime = System.currentTimeMillis();
+                    System.out.println("第n个Fibonacci数是:"+digui(n));
+                    //获取结束时间
+                    long endTime = System.currentTimeMillis();
+                    System.out.println("花费时间："+(endTime - startTime)+"ms");
+                }else if (num == 2){
+                    //非递归
+                    System.out.print("请输入n个Fibonacci数：");
+                    int n = sc1.nextInt();
+                    //获取开始时间
+                    long startTime = System.currentTimeMillis();
+                    System.out.println("第n个Fibonacci数是:"+diedai(n));
+                    //获取结束时间
+                    long endTime = System.currentTimeMillis();
+                    System.out.println("花费时间："+(endTime - startTime)+"ms");
+                }else if (num == 3){
+                    //计算机能承受最大值
+                    finddiedai();
+                }
             }else if(selectNum == 2){
                 //初始化二维数组
                 int [][]arr1 = new int[4][4];
@@ -79,14 +95,27 @@ public class MyTest {
                     }
                 }
             }else if (selectNum == 4){
-                //初始化数组
-                int []arr = {10,7,9,8,5,6,3};
-                //返回排序后的数组
-                int[] heapSort = heapSort(arr);
-                //遍历
-                for (int i = 0; i < heapSort.length; i++) {
-                    System.out.println(heapSort[i]);
+                //标记变量
+                int num = 1;
+                //初始化集合
+                List<Integer> list = new ArrayList<Integer>();
+                while (num != 0){
+                    System.out.print("请输入数组中的数字(输入数字0时退出)：");
+                    Scanner scanner = new Scanner(System.in);
+                    num = scanner.nextInt();
+                    list.add(num);
+                    //初始化数组
+                    Integer []arr = list.toArray(new Integer[list.size()]);
+                    //返回排序后的数组
+                    Integer[] heapSort = heapSort(arr);
+                    //遍历
+                    System.out.print("堆排序后：");
+                    for (int i = 0; i < heapSort.length; i++) {
+                        System.out.print(heapSort[i]+"\t");
+                    }
+                    System.out.println();
                 }
+
             }else if (selectNum == 3){
                 findCoins();
         }
@@ -285,7 +314,7 @@ public class MyTest {
      */
     //每趟循环使得非叶子节点的节点和它的叶子节点保持为大顶堆
     //创建大顶堆，前提是数组为完全二叉树
-    public static int[] makeHeap(int [] arr){
+    public static Integer[] makeHeap(Integer [] arr){
         //从最后一个节点直到第一个节点，进行调整
         for (int i = (arr.length-1)/2; i >= 0 ; i--) {
             adjustHeap(arr,i,arr.length);
@@ -295,7 +324,7 @@ public class MyTest {
 
     //此方法谨调整一次根节点k和子节点的大小关系保持大顶堆，而不是调整所有的数组直接变成大顶堆
     //调整堆，arr为数组，k为根节点，length为数组长度
-    private static void adjustHeap(int[] arr, int k, int length) {
+    private static void adjustHeap(Integer[] arr, int k, int length) {
         //首先拿到根节点的值
         int temp = arr[k];
         for (int i = 2*k+1; i < length-1; i=i*2+1) {
@@ -317,9 +346,9 @@ public class MyTest {
     }
 
     //进行排序
-    private static int[] heapSort(int[] arr) {
+    private static Integer[] heapSort(Integer[] arr) {
         //将混乱数组初始化堆
-        int[] heap = makeHeap(arr);
+        Integer[] heap = makeHeap(arr);
 
         for (int i = heap.length-1; i > 1 ; i--) {
             //交换根节点(最大值)和最后一个节点
@@ -336,7 +365,7 @@ public class MyTest {
     /**
      * 8枚假币问题
      */
-    static int[] coins = {2, 8, 2, 2, 2, 2, 2, 2};
+    static int[] coins = {2, 2, 2, 2, 2, 2, 1, 2};
     static int flag;
 
     public static void findCoins() {
