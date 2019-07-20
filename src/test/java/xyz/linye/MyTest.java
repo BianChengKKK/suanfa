@@ -25,7 +25,7 @@ public class MyTest {
                 "4.变治法在排序问题中的应用——堆排序问题\n" +
                 "99. 退出本实验\n" +
                 "－－－－－－－－－－－－－－－－－－－－－－－－－\n" +
-                "请输入您所要执行的操作（1，2，3，4，5，99）：");
+                "请输入您所要执行的操作（1，2，3，4，5，99）：\n");
 
             //输入操作数
             Scanner sc = new Scanner(System.in);
@@ -38,7 +38,7 @@ public class MyTest {
                 System.out.print("请输入(1.递归算法   2.非递归算法   3.查找计算机承受最大值)：");
                 int num = sc1.nextInt();
                 if(num == 1){
-                    System.out.print("请输入n个Fibonacci数 ");
+                    System.out.print("请输入n个Fibonacci数： ");
                     int n = sc1.nextInt();
                     //获取开始时间
                     long startTime = System.currentTimeMillis();
